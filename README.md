@@ -7,3 +7,6 @@ To run it, just clone it and follow the steps:
 
 Climatempo API Advisor:
 - https://advisor.climatempo.com.br
+
+Others:
+- http://ionicframework.com/docs/v1/guide/starting.html
