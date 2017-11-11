@@ -10,3 +10,4 @@ Climatempo API Advisor:
 
 Others:
 - http://ionicframework.com/docs/v1/guide/starting.html
+- http://technotip.com/5057/basics-of-injectable-or-providers-ionic-2/
