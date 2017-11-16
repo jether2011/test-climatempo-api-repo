@@ -5,8 +5,11 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <!-- <access origin="*" /> -->
-    <access origin="*://*.apiadvisor.climatempo.com.br/*"/>
-    <!-- <allow-navigation href="*://*.linksExternosPermitidosViaApp.com/*"/> -->
+    <!-- <access origin="*://*.http://climatempo-advisor-api.herokuapp.com/*"/> -->
+    <access origin="*://*/*" />
+    <allow-navigation href="*"/>
+    <allow-navigation href="http://ionic.local/*" />
+    <allow-navigation href="*://*.apiadvisor.climatempo.com.br/*"/>
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
