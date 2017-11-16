@@ -1,0 +1,7 @@
+{
+    "name": "Climatempo API - Test",
+    "description": "Application to test the Climatempo Advisor API",
+    "repository": "https://github.com/jether2011/test-climatempo-api-repo.git",
+    "logo": "https://avatars1.githubusercontent.com/u/667545?s=40&v=4",
+    "keywords": ["ionic3", "heroku", "clamtempo", "api"]
+}
