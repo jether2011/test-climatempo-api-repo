@@ -41,9 +41,7 @@ export class CitiesServiceProvider {
     }
   
     return new Promise(resolve => {
-      this.http.get(this.urlCities)
-        //.do((response : Response ) => console.log(response.json()))
-        //.map((response : Response ) => response.json())
+      this.http.get(this.urlCities)        
         .subscribe(data => {
           this.data = data;
           resolve(this.data);
@@ -59,3 +57,5 @@ export class CitiesServiceProvider {
       });
   }
 }
+//.do((response : Response ) => console.log(response.json()))
+//.map((response : Response ) => response.json())
