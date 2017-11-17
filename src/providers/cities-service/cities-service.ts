@@ -27,6 +27,8 @@ export class CitiesServiceProvider {
 
   constructor(public http: HttpClient) {
     console.log("CitiesServiceProvider");
+    console.log(this.urlCities);
+    console.log(this.urlCity);
   }
 
   loadCities() {
@@ -40,8 +42,8 @@ export class CitiesServiceProvider {
   
     return new Promise(resolve => {
       this.http.get(this.urlCities)
-        .do((response : Response ) => console.log(response.json()))
-        .map((response : Response ) => response.json())
+        //.do((response : Response ) => console.log(response.json()))
+        //.map((response : Response ) => response.json())
         .subscribe(data => {
           this.data = data;
           resolve(this.data);
