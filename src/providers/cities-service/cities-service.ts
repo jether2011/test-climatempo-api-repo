@@ -21,8 +21,8 @@ export class CitiesServiceProvider {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   };
-  urlCities: string = "http://apiadvisor.climatempo.com.br/api/v1/locale/city";
-  urlCity: string = "http://apiadvisor.climatempo.com.br/api/v1/weather/locale/";
+  urlCities: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/locale/SP";
+  urlCity: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/weather/";
   public data: any;
 
   constructor(public http: HttpClient) {
@@ -39,7 +39,7 @@ export class CitiesServiceProvider {
     }
   
     return new Promise(resolve => {
-      this.http.get(this.urlCities + "?state=SP&token=334ea9d9b10399afc14c74bd63134a2e")
+      this.http.get(this.urlCities)
         .do((response : Response ) => console.log(response.json()))
         .map((response : Response ) => response.json())
         .subscribe(data => {
@@ -51,7 +51,7 @@ export class CitiesServiceProvider {
   }
 
   getCity (idCity: number) {
-    return this.http.get(this.urlCity + `${idCity}` + "/current?token=334ea9d9b10399afc14c74bd63134a2e")
+    return this.http.get(this.urlCity + `${idCity}`)
       .map((response : Response ) => {
         return response.json();
       });
