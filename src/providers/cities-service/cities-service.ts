@@ -41,9 +41,13 @@ export class CitiesServiceProvider {
     }
     console.log(state);
     return new Promise(resolve => {
+<<<<<<< HEAD
       this.http.get(this.urlCities + `${state}`)
+=======
+      this.http.get(this.urlCities)   
+>>>>>>> d90b826cc30fa07b65dc07077560d148b6057e5c
         //.do((response : Response ) => console.log(response.json()))
-        //.map((response : Response ) => response.json())
+        //.map((response : Response ) => response.json())     
         .subscribe(data => {
           this.data = data;
           resolve(this.data);
