@@ -13,6 +13,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CitiesServiceProvider } from '../providers/cities-service/cities-service';
+import { StatesServiceProvider } from '../providers/states-service/states-service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CitiesServiceProvider } from '../providers/cities-service/cities-servic
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CitiesServiceProvider
+    CitiesServiceProvider,
+    StatesServiceProvider
   ]
 })
 export class AppModule {}

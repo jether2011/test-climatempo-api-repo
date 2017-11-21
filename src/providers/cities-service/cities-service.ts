@@ -21,7 +21,7 @@ export class CitiesServiceProvider {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   };
-  urlCities: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/locale/SP";
+  urlCities: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/locale/";
   urlCity: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/weather/";
   public data: any;
 
@@ -31,7 +31,7 @@ export class CitiesServiceProvider {
     console.log(this.urlCity);
   }
 
-  loadCities() {
+  loadCities(state: any) {
     let body = JSON.stringify(this.data);
     let headersRequest = new Headers(this.headers);
     let options = new RequestOptions({ headers: headersRequest });
@@ -39,9 +39,9 @@ export class CitiesServiceProvider {
     if (this.data) {
       return Promise.resolve(this.data);
     }
-  
+    console.log(state);
     return new Promise(resolve => {
-      this.http.get(this.urlCities)
+      this.http.get(this.urlCities + `${state}`)
         //.do((response : Response ) => console.log(response.json()))
         //.map((response : Response ) => response.json())
         .subscribe(data => {
@@ -53,9 +53,12 @@ export class CitiesServiceProvider {
   }
 
   getCity (idCity: number) {
-    return this.http.get(this.urlCity + `${idCity}`)
-      .map((response : Response ) => {
-        return response.json();
-      });
+    return new Promise(resolve => {
+      this.http.get(this.urlCity + `${idCity}`)
+      .subscribe(data => {
+        this.data = data;
+        resolve(this.data);
+      })
+    });
   }
 }

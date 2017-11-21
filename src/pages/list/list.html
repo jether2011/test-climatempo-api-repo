@@ -8,8 +8,22 @@
 </ion-header>
 
 <ion-content class="list">
+  <ion-card>
+    <ion-card-header>
+      Choose a state
+    </ion-card-header>
+    <ion-card-content *ngIf="selectedCity == null">
+      <ion-item>
+        <ion-label>State</ion-label>
+        <ion-select [ngModel]="state" (ngModelChange)="selectObjectByStateInitial($event, state)" name="state">
+          <ion-option *ngFor="let state of states" [value]="state.initial">{{state.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
   <ion-list>
-    <ion-item *ngFor="let city of cities" (click)="cityTapped($event, city)">
+    <ion-item *ngFor="let city of cities" (click)="cityTapped($event, city)" >
       <ion-thumbnail item-start>
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAM4SURBVGhD7ZnLy01RHIY/9zspCUkxUW65ZkIoAzExMTHyDzBhwEAZmJCSiRFlIpcJA0kZGqAkKRnILQNkgMTE9X2O/ctqWWvvtS9nn/3VeerJt377nPPt99v7PWefbWTIkG4wXW6UY3qrUcwi+Vu+kqdkaqhNkufd6a3+X7eOBXFNCdXZIB/kSfkyW5uxUJ0N8rq3+ssGWRRqczbrdBCXWKiP2b/3JEeq80FcYqF47rXs51ERxCUW6pMs8+7XGH6QsXJ2wJkyxnp5Qr6QbqhLsjX8ILb2fSxTINR5yXNuMGgLP8gC+TzgTZmKFX+gQZrADzJVLilwrqyFH2S8DP2iFDma4AfZJVnneVHWIrUjKfofjhZkmwydrvhe8tjGg8Q6kuIVCWU6slf2JUgThIL4PbFO9C1IUUcWSpgo/W2xjoDfE9vxvgUp6oh9nqyR/rZYR6D1IPPkgxwvS1gtH8nUjjBzX+e4hEpBxsl1kp0w2upIjEpBZkmexIWd4Qfh3CdsFZdKCAXhd7uPXSyhb0GKOpJnax1JCVLUkTzPSehEkCYIBWHmhi5ddis4bpE86Yszs7/UW2fmu0zCFBnabuZ1JEZyEDsKdbTPjpUytN3M60jtsluQ7/J2Se9KnmtB+OWhx5mnJfSlI6FepGJHIPXbodFKEK6ltmduZZAxWdqcHYEmg3Azwj16RyRUDmJrdwbu54e9g+UF4WYEO7xc+ndLQkFiVA4yTdpf5TqDDC6rbW4vGgrCTh+S3yTb8KFcJY1QkDnSjjiukDCwjuyXzH7I+/JNtn4n2VkIBelURybJz/Kn3MFATJB2l5F7W9BKkDod4QOP9bPe6h87JfNbvVU4SONl5yvn1cwLDDI4LWx+loHwg8yQvyRXBtx9NA5KHpd3rRVjYB3hDYIZ/dgnj0krPndLIBRkvtzjyBGCykE4p+3FdjPI4EjZnPMZQkH4Xv5EMnclkNH5jhi8MbDjbOM/f7h2cmklSJ2OuNjO2oWiSyjIWmmvjwckDKwjRtkgMUoH+SqtA6nauxGnmr/tqGTbU2fmb7MgftFdz8hSQQahBfH7EbIwiNuJtj0swe9HSOvMkCFDkhgZ+QObj5rcgptcoAAAAABJRU5ErkJggg==">
       </ion-thumbnail>

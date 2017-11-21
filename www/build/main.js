@@ -77,6 +77,7 @@ var HomePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_cities_service_cities_service__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_states_service_states_service__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -89,16 +90,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ListPage = (function () {
-    function ListPage(navCtrl, navParams, citiesService) {
+    function ListPage(navCtrl, navParams, citiesService, statesService) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.citiesService = citiesService;
+        this.statesService = statesService;
         this.selectedCity = navParams.get('city');
-        this.icons = ['wifi'];
-        this.citiesService.loadCities().then(function (data) {
-            _this.cities = data;
+        this.selectedState = navParams.get('state');
+        this.statesService.loadStates().then(function (state) {
+            _this.states = state;
         });
     }
     ListPage_1 = ListPage;
@@ -107,16 +110,25 @@ var ListPage = (function () {
             city: city
         });
     };
+    ListPage.prototype.selectObjectByStateInitial = function (state) {
+        var _this = this;
+        console.log(state);
+        this.icons = ['wifi'];
+        this.citiesService.loadCities(state).then(function (data) {
+            _this.cities = data;
+            console.log(_this.cities);
+            return _this.cities;
+        });
+    };
     ListPage = ListPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-list',template:/*ion-inline-start:"/Users/jether.rodrigues/Desktop/DEV/ionic/test-climatempo-api-repo/src/pages/list/list.html"*/`<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Cities</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="list">\n  <ion-list>\n    <ion-item *ngFor="let city of cities" (click)="cityTapped($event, city)">\n      <ion-thumbnail item-start>\n        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAM4SURBVGhD7ZnLy01RHIY/9zspCUkxUW65ZkIoAzExMTHyDzBhwEAZmJCSiRFlIpcJA0kZGqAkKRnILQNkgMTE9X2O/ctqWWvvtS9nn/3VeerJt377nPPt99v7PWefbWTIkG4wXW6UY3qrUcwi+Vu+kqdkaqhNkufd6a3+X7eOBXFNCdXZIB/kSfkyW5uxUJ0N8rq3+ssGWRRqczbrdBCXWKiP2b/3JEeq80FcYqF47rXs51ERxCUW6pMs8+7XGH6QsXJ2wJkyxnp5Qr6QbqhLsjX8ILb2fSxTINR5yXNuMGgLP8gC+TzgTZmKFX+gQZrADzJVLilwrqyFH2S8DP2iFDma4AfZJVnneVHWIrUjKfofjhZkmwydrvhe8tjGg8Q6kuIVCWU6slf2JUgThIL4PbFO9C1IUUcWSpgo/W2xjoDfE9vxvgUp6oh9nqyR/rZYR6D1IPPkgxwvS1gtH8nUjjBzX+e4hEpBxsl1kp0w2upIjEpBZkmexIWd4Qfh3CdsFZdKCAXhd7uPXSyhb0GKOpJnax1JCVLUkTzPSehEkCYIBWHmhi5ddis4bpE86Yszs7/UW2fmu0zCFBnabuZ1JEZyEDsKdbTPjpUytN3M60jtsluQ7/J2Se9KnmtB+OWhx5mnJfSlI6FepGJHIPXbodFKEK6ltmduZZAxWdqcHYEmg3Azwj16RyRUDmJrdwbu54e9g+UF4WYEO7xc+ndLQkFiVA4yTdpf5TqDDC6rbW4vGgrCTh+S3yTb8KFcJY1QkDnSjjiukDCwjuyXzH7I+/JNtn4n2VkIBelURybJz/Kn3MFATJB2l5F7W9BKkDod4QOP9bPe6h87JfNbvVU4SONl5yvn1cwLDDI4LWx+loHwg8yQvyRXBtx9NA5KHpd3rRVjYB3hDYIZ/dgnj0krPndLIBRkvtzjyBGCykE4p+3FdjPI4EjZnPMZQkH4Xv5EMnclkNH5jhi8MbDjbOM/f7h2cmklSJ2OuNjO2oWiSyjIWmmvjwckDKwjRtkgMUoH+SqtA6nauxGnmr/tqGTbU2fmb7MgftFdz8hSQQahBfH7EbIwiNuJtj0swe9HSOvMkCFDkhgZ+QObj5rcgptcoAAAAABJRU5ErkJggg==">\n      </ion-thumbnail>\n      <h2>{{city.id}}</h2>\n      <p>{{city.name}} - {{city.state}} - {{city.country}}</p>\n    </ion-item>\n  </ion-list>\n  <div *ngIf="selectedCity" padding>\n    See weather <b>{{selectedCity.name}}</b>\n  </div>\n</ion-content>`/*ion-inline-end:"/Users/jether.rodrigues/Desktop/DEV/ionic/test-climatempo-api-repo/src/pages/list/list.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_2__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */]]
+            selector: 'page-list',template:/*ion-inline-start:"/Users/jether.rodrigues/Desktop/DEV/ionic/test-climatempo-api-repo/src/pages/list/list.html"*/`<ion-header>\n  <ion-navbar>\n    <button ion-button menuToggle>\n      <ion-icon name="menu"></ion-icon>\n    </button>\n    <ion-title>Cities</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="list">\n  <ion-card>\n    <ion-card-header>\n      Choose a state\n    </ion-card-header>\n    <ion-card-content *ngIf="selectedCity == null">\n      <ion-item>\n        <ion-label>State</ion-label>\n        <ion-select [ngModel]="state" (ngModelChange)="selectObjectByStateInitial($event, state)" name="state">\n          <ion-option *ngFor="let state of states" [value]="state.initial">{{state.name}}</ion-option>\n        </ion-select>\n      </ion-item>\n    </ion-card-content>\n  </ion-card>\n\n  <ion-list>\n    <ion-item *ngFor="let city of cities" (click)="cityTapped($event, city)" >\n      <ion-thumbnail item-start>\n        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAM4SURBVGhD7ZnLy01RHIY/9zspCUkxUW65ZkIoAzExMTHyDzBhwEAZmJCSiRFlIpcJA0kZGqAkKRnILQNkgMTE9X2O/ctqWWvvtS9nn/3VeerJt377nPPt99v7PWefbWTIkG4wXW6UY3qrUcwi+Vu+kqdkaqhNkufd6a3+X7eOBXFNCdXZIB/kSfkyW5uxUJ0N8rq3+ssGWRRqczbrdBCXWKiP2b/3JEeq80FcYqF47rXs51ERxCUW6pMs8+7XGH6QsXJ2wJkyxnp5Qr6QbqhLsjX8ILb2fSxTINR5yXNuMGgLP8gC+TzgTZmKFX+gQZrADzJVLilwrqyFH2S8DP2iFDma4AfZJVnneVHWIrUjKfofjhZkmwydrvhe8tjGg8Q6kuIVCWU6slf2JUgThIL4PbFO9C1IUUcWSpgo/W2xjoDfE9vxvgUp6oh9nqyR/rZYR6D1IPPkgxwvS1gtH8nUjjBzX+e4hEpBxsl1kp0w2upIjEpBZkmexIWd4Qfh3CdsFZdKCAXhd7uPXSyhb0GKOpJnax1JCVLUkTzPSehEkCYIBWHmhi5ddis4bpE86Yszs7/UW2fmu0zCFBnabuZ1JEZyEDsKdbTPjpUytN3M60jtsluQ7/J2Se9KnmtB+OWhx5mnJfSlI6FepGJHIPXbodFKEK6ltmduZZAxWdqcHYEmg3Azwj16RyRUDmJrdwbu54e9g+UF4WYEO7xc+ndLQkFiVA4yTdpf5TqDDC6rbW4vGgrCTh+S3yTb8KFcJY1QkDnSjjiukDCwjuyXzH7I+/JNtn4n2VkIBelURybJz/Kn3MFATJB2l5F7W9BKkDod4QOP9bPe6h87JfNbvVU4SONl5yvn1cwLDDI4LWx+loHwg8yQvyRXBtx9NA5KHpd3rRVjYB3hDYIZ/dgnj0krPndLIBRkvtzjyBGCykE4p+3FdjPI4EjZnPMZQkH4Xv5EMnclkNH5jhi8MbDjbOM/f7h2cmklSJ2OuNjO2oWiSyjIWmmvjwckDKwjRtkgMUoH+SqtA6nauxGnmr/tqGTbU2fmb7MgftFdz8hSQQahBfH7EbIwiNuJtj0swe9HSOvMkCFDkhgZ+QObj5rcgptcoAAAAABJRU5ErkJggg==">\n      </ion-thumbnail>\n      <h2>{{city.id}}</h2>\n      <p>{{city.name}} - {{city.state}} - {{city.country}}</p>\n    </ion-item>\n  </ion-list>\n  <div *ngIf="selectedCity" padding>\n    See weather <b>{{selectedCity.name}}</b>\n  </div>\n</ion-content>`/*ion-inline-end:"/Users/jether.rodrigues/Desktop/DEV/ionic/test-climatempo-api-repo/src/pages/list/list.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_2__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */], __WEBPACK_IMPORTED_MODULE_3__providers_states_service_states_service__["a" /* StatesServiceProvider */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__providers_states_service_states_service__["a" /* StatesServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_states_service_states_service__["a" /* StatesServiceProvider */]) === "function" && _d || Object])
     ], ListPage);
     return ListPage;
-    var ListPage_1;
+    var ListPage_1, _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=list.js.map
@@ -128,14 +140,14 @@ var ListPage = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CitiesServiceProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__ = __webpack_require__(281);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__ = __webpack_require__(284);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_catch__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -167,13 +179,13 @@ var CitiesServiceProvider = (function () {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         };
-        this.urlCities = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/locale/SP";
+        this.urlCities = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/locale/";
         this.urlCity = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/weather/";
         console.log("CitiesServiceProvider");
         console.log(this.urlCities);
         console.log(this.urlCity);
     }
-    CitiesServiceProvider.prototype.loadCities = function () {
+    CitiesServiceProvider.prototype.loadCities = function (state) {
         var _this = this;
         var body = JSON.stringify(this.data);
         var headersRequest = new __WEBPACK_IMPORTED_MODULE_2__angular_http__["a" /* Headers */](this.headers);
@@ -181,10 +193,9 @@ var CitiesServiceProvider = (function () {
         if (this.data) {
             return Promise.resolve(this.data);
         }
+        console.log(state);
         return new Promise(function (resolve) {
-            _this.http.get(_this.urlCities)
-                .do(function (response) { return console.log(response.json()); })
-                .map(function (response) { return response.json(); })
+            _this.http.get(_this.urlCities + ("" + state))
                 .subscribe(function (data) {
                 _this.data = data;
                 resolve(_this.data);
@@ -193,16 +204,21 @@ var CitiesServiceProvider = (function () {
         });
     };
     CitiesServiceProvider.prototype.getCity = function (idCity) {
-        return this.http.get(this.urlCity + ("" + idCity))
-            .map(function (response) {
-            return response.json();
+        var _this = this;
+        return new Promise(function (resolve) {
+            _this.http.get(_this.urlCity + ("" + idCity))
+                .subscribe(function (data) {
+                _this.data = data;
+                resolve(_this.data);
+            });
         });
     };
     CitiesServiceProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]) === "function" && _a || Object])
     ], CitiesServiceProvider);
     return CitiesServiceProvider;
+    var _a;
 }());
 
 //# sourceMappingURL=cities-service.js.map
@@ -213,9 +229,189 @@ var CitiesServiceProvider = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatesServiceProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/*
+  Generated class for the StatesServiceProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var StatesServiceProvider = (function () {
+    function StatesServiceProvider(http) {
+        this.http = http;
+        console.log('StatesServiceProvider');
+    }
+    StatesServiceProvider.prototype.loadStates = function () {
+        this.states = [
+            {
+                "id": "1",
+                "initial": "AC",
+                "name": "Acre"
+            },
+            {
+                "id": "2",
+                "initial": "AL",
+                "name": "Alagoas"
+            },
+            {
+                "id": "3",
+                "initial": "AM",
+                "name": "Amazonas"
+            },
+            {
+                "id": "4",
+                "initial": "AP",
+                "name": "Amapá"
+            },
+            {
+                "id": "5",
+                "initial": "BA",
+                "name": "Bahia"
+            },
+            {
+                "id": "6",
+                "initial": "CE",
+                "name": "Ceará"
+            },
+            {
+                "id": "7",
+                "initial": "DF",
+                "name": "Distrito Federal"
+            },
+            {
+                "id": "8",
+                "initial": "ES",
+                "name": "Espírito Santo"
+            },
+            {
+                "id": "9",
+                "initial": "GO",
+                "name": "Goiás"
+            },
+            {
+                "id": "10",
+                "initial": "MA",
+                "name": "Maranhão"
+            },
+            {
+                "id": "11",
+                "initial": "MG",
+                "name": "Minas Gerais"
+            },
+            {
+                "id": "12",
+                "initial": "MS",
+                "name": "Mato Grosso do Sul"
+            },
+            {
+                "id": "13",
+                "initial": "MT",
+                "name": "Mato Grosso"
+            },
+            {
+                "id": "14",
+                "initial": "PA",
+                "name": "Pará"
+            },
+            {
+                "id": "15",
+                "initial": "PB",
+                "name": "Paraíba"
+            },
+            {
+                "id": "16",
+                "initial": "PE",
+                "name": "Pernambuco"
+            },
+            {
+                "id": "17",
+                "initial": "PI",
+                "name": "Piauí"
+            },
+            {
+                "id": "18",
+                "initial": "PR",
+                "name": "Paraná"
+            },
+            {
+                "id": "19",
+                "initial": "RJ",
+                "name": "Rio de Janeiro"
+            },
+            {
+                "id": "20",
+                "initial": "RN",
+                "name": "Rio Grande do Norte"
+            },
+            {
+                "id": "21",
+                "initial": "RO",
+                "name": "Rondônia"
+            },
+            {
+                "id": "22",
+                "initial": "RR",
+                "name": "Roraima"
+            },
+            {
+                "id": "23",
+                "initial": "RS",
+                "name": "Rio Grande do Sul"
+            },
+            {
+                "id": "24",
+                "initial": "SC",
+                "name": "Santa Catarina"
+            },
+            {
+                "id": "25",
+                "initial": "SE",
+                "name": "Sergipe"
+            },
+            {
+                "id": "26",
+                "initial": "SP",
+                "name": "São Paulo"
+            },
+            {
+                "id": "27",
+                "initial": "TO",
+                "name": "Tocantins"
+            }
+        ];
+        return Promise.resolve(this.states);
+    };
+    StatesServiceProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_common_http__["a" /* HttpClient */]])
+    ], StatesServiceProvider);
+    return StatesServiceProvider;
+}());
+
+//# sourceMappingURL=states-service.js.map
+
+/***/ }),
+
+/***/ 203:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(203);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(225);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -223,7 +419,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 224:
+/***/ 225:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -231,20 +427,22 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__(194);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(271);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_list_list__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__providers_cities_service_cities_service__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__providers_states_service_states_service__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -288,7 +486,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__["a" /* SplashScreen */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_10__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */]
+                __WEBPACK_IMPORTED_MODULE_10__providers_cities_service_cities_service__["a" /* CitiesServiceProvider */],
+                __WEBPACK_IMPORTED_MODULE_11__providers_states_service_states_service__["a" /* StatesServiceProvider */]
             ]
         })
     ], AppModule);
@@ -299,7 +498,7 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 271:
+/***/ 272:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -368,5 +567,5 @@ var MyApp = (function () {
 
 /***/ })
 
-},[202]);
+},[203]);
 //# sourceMappingURL=main.js.map
