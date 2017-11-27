@@ -9,6 +9,7 @@ import { HttpHandler } from '@angular/common/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+//import { DetailsPage } from '../pages/details/details';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,7 +20,8 @@ import { StatesServiceProvider } from '../providers/states-service/states-servic
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    //DetailsPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { StatesServiceProvider } from '../providers/states-service/states-servic
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    //DetailsPage
   ],
   providers: [
     HttpClientModule,

@@ -10,7 +10,6 @@ import {StatesServiceProvider} from '../../providers/states-service/states-servi
 })
 
 export class ListPage {
-  selectedCity: any;
   selectedState: any;
   icons: string[];
   public cities: any;
@@ -18,17 +17,15 @@ export class ListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public citiesService: CitiesServiceProvider, public statesService: StatesServiceProvider) {
-
-    this.selectedCity = navParams.get('city');
+    
     this.selectedState = navParams.get('state');
-
     this.statesService.loadStates().then(state => {
       this.states = state;
     });
   }
 
   cityTapped(event, city) {
-    this.navCtrl.push(ListPage, {
+    this.navCtrl.push('DetailsPage', {
       city: city
     });
   }

@@ -24,6 +24,7 @@ export class CitiesServiceProvider {
   urlCities: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/locale/";
   urlCity: string = "https://spring-climatempo-bridge.herokuapp.com/api/v1/climatempo/weather/";
   public data: any;
+  public dataWeather: any;
 
   constructor(public http: HttpClient) {
     console.log("CitiesServiceProvider");
@@ -39,25 +40,27 @@ export class CitiesServiceProvider {
     if (this.data) {
       return Promise.resolve(this.data);
     }
+
     console.log(state);
     return new Promise(resolve => {
-      this.http.get(this.urlCities + `${state}`)
-        //.do((response : Response ) => console.log(response.json()))
-        //.map((response : Response ) => response.json())     
+      this.http.get(this.urlCities + `${state}`)  
         .subscribe(data => {
           this.data = data;
           resolve(this.data);
         })
-        //.catch(error => console.log(error))
     });
   }
 
   getCity (idCity: number) {
+    if (this.dataWeather) {
+      return Promise.resolve(this.dataWeather);
+    }
+
     return new Promise(resolve => {
       this.http.get(this.urlCity + `${idCity}`)
-      .subscribe(data => {
-        this.data = data;
-        resolve(this.data);
+      .subscribe(dataWeather => {
+        this.dataWeather = dataWeather;
+        resolve(this.dataWeather);
       })
     });
   }

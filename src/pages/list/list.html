@@ -8,11 +8,11 @@
 </ion-header>
 
 <ion-content class="list">
-  <ion-card>
+  <ion-card *ngIf="selectedCity == null">
     <ion-card-header>
       Choose a state
     </ion-card-header>
-    <ion-card-content *ngIf="selectedCity == null">
+    <ion-card-content>
       <ion-item>
         <ion-label>State</ion-label>
         <ion-select [ngModel]="state" (ngModelChange)="selectObjectByStateInitial($event, state)" name="state">
@@ -31,7 +31,4 @@
       <p>{{city.name}} - {{city.state}} - {{city.country}}</p>
     </ion-item>
   </ion-list>
-  <div *ngIf="selectedCity" padding>
-    See weather <b>{{selectedCity.name}}</b>
-  </div>
 </ion-content>
