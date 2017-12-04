@@ -25,19 +25,16 @@ export class DetailsPage {
     public citiesService: CitiesServiceProvider) {
 
     this.city = navParams.get('city');
-    console.log(this.city);
+    //console.log(this.city);
 
-    this.showDetails(this.city.id);
+    this.showDetails(this.city);
   }
 
-  showDetails(id){
-    this.citiesService.getCity(id).then( data => {
+  showDetails(item: any){
+    this.citiesService.getCity(item.id).then( data => {
       this.weather = data;
-      console.log(this.weather);
-    });
-
-    this.navCtrl.push('DetailsPage', {
-      weather: this.weather
-    });
+      //console.log(this.weather);      
+    })
+    .catch(() => {});
   }
 }

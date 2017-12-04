@@ -13,50 +13,50 @@
 <ion-content padding>
   <ion-card *ngIf="weather != null">
     <ion-card-header>
-      Weather Situation: [ {{ weather.data.date }} ]
+      Date:<br/> [ {{ weather.data.date }} ]
     </ion-card-header>
-  
-    <ion-list>
-      <button ion-item>
-        <ion-icon name="planet" item-start></ion-icon>
-        {{ weather.name }}/{{ weather.state }}
-      </button>
-  
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Temperature: {{ weather.data.temperature }}
-      </button>
+    <ion-card-content>
+      <ion-list>
+        <button ion-item>
+          <ion-icon name="ios-pin-outline" item-start></ion-icon>
+          {{ weather.name }}/{{ weather.state }}
+        </button>
 
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Wind Direction: {{ weather.data.wind_direction }}
-      </button>
-  
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Wind Velocity: {{ weather.data.wind_velocity }}
-      </button>
-  
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Humidity: {{ weather.data.humidity }}
-      </button>
-  
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Condition: {{ weather.data.condition }}
-      </button>
+        <button ion-item>
+          <ion-icon name="ios-thermometer-outline" item-start></ion-icon>
+          Temperature: {{ weather.data.temperature }}
+        </button>
 
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Pressure: {{ weather.data.pressure }}
-      </button>
+        <button ion-item>
+          <ion-icon name="ios-compass-outline" item-start></ion-icon>
+          Wind Direction: {{ weather.data.wind_direction }}
+        </button>
 
-      <button ion-item>
-        <ion-icon name="pin" item-start></ion-icon>
-        Sensation: {{ weather.data.sensation }}
-      </button>
-  
-    </ion-list>
+        <button ion-item>
+          <ion-icon name="ios-speedometer-outline" item-start></ion-icon>
+          Wind Velocity: {{ weather.data.wind_velocity }}
+        </button>
+
+        <button ion-item>
+          <ion-icon name="ios-partly-sunny-outline" item-start></ion-icon>
+          Humidity: {{ weather.data.humidity }}
+        </button>
+
+        <button ion-item>
+          <ion-icon name="ios-rainy-outline" item-start></ion-icon>
+          Condition: <br/>{{ weather.data.condition }}
+        </button>
+
+        <button ion-item>
+          <ion-icon name="ios-radio-outline" item-start></ion-icon>
+          Pressure: {{ weather.data.pressure }}
+        </button>
+
+        <button ion-item>
+          <ion-icon name="ios-stats-outline" item-start></ion-icon>
+          Sensation: {{ weather.data.sensation }}
+        </button>
+      </ion-list>    
+    </ion-card-content>
   </ion-card>
 </ion-content>
